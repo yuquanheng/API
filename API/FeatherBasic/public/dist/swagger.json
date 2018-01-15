@@ -1,0 +1,618 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API接口"
+  },
+  "host": "127.0.0.1:3030",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "JWT",
+      "description": "获取TOKEN"
+    },
+    {
+      "name": "VideoCount",
+      "description": "用户视频账号查询"
+    },
+    {
+      "name": "ApkPackage",
+      "description": "Apk包"
+    },
+    {
+      "name": "ControllPhone",
+      "description": "终端开关机"
+    },
+    {
+      "name": "QueryDeviceRegInfo",
+      "description": "注册信息"
+    },
+    {
+      "name": "QueryJump",
+      "description": "跳转信息"
+    },
+    {
+      "name": "EmitKKST",
+      "description": "康卡斯特激活"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/authentication": {
+      "post": {
+        "tags": [
+          "JWT"
+        ],
+        "summary": "获取TOKEN",
+        "description": "",
+        "operationId": "addVideo",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "请填写用户信息",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/JWTRESP"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/VideoCount/RequeArray": {
+      "post": {
+        "tags": [
+          "VideoCount"
+        ],
+        "summary": "传入一个用户号码数组",
+        "description": "",
+        "operationId": "createUsersWithArrayInput",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "用户号码数组",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful opertation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VIDEORESP"
+              }
+            }
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/ApkPackage/Query/{pTime}": {
+      "get": {
+        "tags": [
+          "ApkPackage"
+        ],
+        "summary": "APK包查询",
+        "description": "",
+        "operationId": "ApkPackageQuery",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pTime",
+            "in": "path",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ApkPackage seccess",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/APKPACKAGE"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid supplied"
+          },
+          "404": {
+            "description": "ApkPackage not found"
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ApkPackage"
+        ],
+        "summary": "批量删除APK包",
+        "description": "",
+        "operationId": "ApkPackageDelete",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pTime",
+            "in": "path",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/PhoneOn": {
+      "post": {
+        "tags": [
+          "ControllPhone"
+        ],
+        "summary": "传入一个用户号码数组",
+        "description": "",
+        "operationId": "ControllPhoneWithArrayInput",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "用户号码数组",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful opertation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VIDEORESP"
+              }
+            }
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/PhoneOn/{phone}": {
+      "get": {
+        "tags": [
+          "ControllPhone"
+        ],
+        "summary": "终端设置开关机状态查询",
+        "description": "",
+        "operationId": "Phoneget",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "需要填入号码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ControllPhone"
+        ],
+        "summary": "终端开机状态更改",
+        "description": "",
+        "operationId": "PhoneOn",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "需要填入号码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ControllPhone"
+        ],
+        "summary": "终端关机",
+        "description": "",
+        "operationId": "PhoneOff",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "需要填入号码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/DeviceRegInfo/{phone}": {
+      "get": {
+        "tags": [
+          "QueryDeviceRegInfo"
+        ],
+        "summary": "终端注册信息查询",
+        "description": "",
+        "operationId": "QueryDeviceRegInfoty",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "需要填入号码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/JumpMessage": {
+      "get": {
+        "tags": [
+          "QueryJump"
+        ],
+        "summary": "终端注册信息查询",
+        "description": "",
+        "operationId": "QueryJumpInfoty",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "query",
+            "description": "需要填入授权信息",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "需要填入号码",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/EmitKKST": {
+      "post": {
+        "tags": [
+          "EmitKKST"
+        ],
+        "summary": "康卡斯特激活",
+        "description": "",
+        "operationId": "EmitKKSTsss",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "用户号码数组",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful opertation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VIDEORESP"
+              }
+            }
+          },
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Phone": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "$ref": "#/definitions/PhoneCatGory"
+        },
+        "x-api-key": {
+          "type": "string"
+        }
+      }
+    },
+    "PhoneCatGory": {
+      "type": "array",
+      "xml": {
+        "name": "phonenumber",
+        "wrapped": true
+      },
+      "items": {
+        "type": "string"
+      }
+    },
+    "APKDody": {
+      "properties": {
+        "pTime": {
+          "$ref": "#/definitions/APKDodyGory"
+        },
+        "x-api-key": {
+          "type": "string"
+        }
+      }
+    },
+    "APKDodyGory": {
+      "type": "array",
+      "xml": {
+        "name": "APKTIME",
+        "wrapped": true
+      },
+      "items": {
+        "type": "string"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Auth": {
+      "type": "object",
+      "required": [
+        "UserName",
+        "MobilePhone"
+      ],
+      "properties": {
+        "UserName": {
+          "type": "string"
+        },
+        "MobilePhone": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string",
+          "example": "anonymous"
+        }
+      }
+    },
+    "JWTRESP": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "VIDEORESP": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "devid": {
+          "type": "string"
+        }
+      }
+    },
+    "APKPACKAGE": {
+      "type": "object",
+      "properties": {
+        "pName": {
+          "type": "string"
+        },
+        "pver": {
+          "type": "string"
+        },
+        "purl": {
+          "type": "string"
+        },
+        "pdesp": {
+          "type": "string"
+        },
+        "pSize": {
+          "type": "string"
+        },
+        "pType": {
+          "type": "string"
+        },
+        "pTime": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "url": "http://127.0.0.1:3030"
+  }
+}
